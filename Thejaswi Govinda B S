@@ -1,0 +1,65 @@
+ #include <stdio.h>
+struct items {
+    char name[50];
+    float unitPrice;
+    int gst;
+    int quantity;
+};
+
+int main() {
+struct items basket[4];
+
+    strcpy(basket[0].name, "Leather wallet");
+    basket[0].unitPrice = 1100;
+    basket[0].gst = 18;
+    basket[0].quantity = 1;
+
+    strcpy(basket[1].name, "Umbrella");
+    basket[1].unitPrice = 900;
+    basket[1].gst = 12;
+    basket[1].quantity = 4;
+
+    strcpy(basket[2].name, "Cigarette");
+    basket[2].unitPrice = 200;
+    basket[2].gst = 28;
+    basket[2].quantity = 3;
+
+    strcpy(basket[3].name, "Honey");
+    basket[3].unitPrice = 100;
+    basket[3].gst = 0;
+    basket[3].quantity = 2;
+
+    // Problem 1: Identify the items with the maximum GST amount
+    
+float maxGstAmount = 0;
+    int maxGstitemsIndex = 0;
+
+    for (int i = 0; i < 4; i++) {
+        float gstAmount = (basket[i].unitPrice * basket[i].gst / 100) * basket[i].quantity;
+        if (gstAmount > maxGstAmount) {
+            maxGstAmount = gstAmount;
+            maxGstitemsIndex = i;
+        }
+    }
+
+  printf("items with maximum GST amount: %s\n", basket[maxGstitemsIndex].name);
+
+ // Problem 2: Calculate the total amount to be paid to the shopkeeper
+  
+float totalAmount = 0;
+
+for (int i = 0; i < 4; i++) {
+float unitPrice = basket[i].unitPrice;
+int quantity = basket[i].quantity;
+
+if (unitPrice >= 500) {
+unitPrice -= unitPrice * 0.05; // Apply 5% discount for unit price >= 500
+}
+
+totalAmount += unitPrice * quantity;
+}
+
+printf("Total amount to be paid to the shopkeeper: %.2f\n", totalAmount);
+
+return 0;
+}
